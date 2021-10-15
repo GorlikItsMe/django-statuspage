@@ -1,7 +1,6 @@
 from django.test.client import Client
 from django.test.testcases import TestCase
 from django.contrib.auth.models import User
-from django.urls.base import reverse
 from django.urls.resolvers import RegexPattern, URLPattern, URLResolver
 from djstatuspage.urls import urlpatterns
 

@@ -67,7 +67,8 @@ class Service(models.Model):
         super().__init__(*args, **kwargs)
         # if check is too old auto change to offline
         if all((
-            self.next_check + timedelta(minutes=1) < timezone.now(),  # last check +1min is older than now
+            # if last check + interval is older than now
+            self.last_check_time + timedelta(seconds=self.interval + 60) < timezone.now(),
             self.status is True
         )):
             self.status = False
@@ -81,4 +82,6 @@ class Service(models.Model):
             print(c)
             self.status = c.is_online
             self.save()
-        return True
+            return c.is_online
+
+        raise Exception("Unknown check_method")
