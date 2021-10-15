@@ -23,13 +23,12 @@ class TestServiceModel(TestCase):
 
         serv: Service = Service.objects.all().first()
         self.assertEqual(serv.status, False)
-    
+
     def test_service_status_check_for_http(self):
         s1 = Service.objects.create(name='Wrong website', url='https://wrongdomain.gorlik.pl')
         s1: Service
         self.assertEqual(s1.check_service(), False)
         self.assertEqual(s1.status, False)
-
 
         s2 = Service.objects.create(name='Wrong website', url='https://google.com')
         s2: Service
@@ -40,4 +39,3 @@ class TestServiceModel(TestCase):
         se: Service
         with self.assertRaisesMessage(Exception, "Unknown check_method"):
             se.check_service()
-        

@@ -83,5 +83,5 @@ class Service(models.Model):
             self.status = c.is_online
             self.save()
             return c.is_online
-        
+
         raise Exception("Unknown check_method")
