@@ -19,10 +19,13 @@ def check_http(url: str, timeout_sek: int) -> CheckReport:
         'User-Agent': 'DjangoStatusPage',
     }
     # start = timer()
-    r = requests.get(url=url, headers=headers, timeout=timeout_sek)
+    try:
+        r = requests.get(url=url, headers=headers, timeout=timeout_sek)
+    except Exception:
+        return CheckReport(is_online=False, time_ms=0)
     # end = timer()
     # time_ms = (end - start) * 1000
     time_ms = r.elapsed.microseconds * 1000
     if r.status_code == 200:
         return CheckReport(is_online=True, time_ms=time_ms)
-    return CheckReport(is_online=False, time_ms=time_ms)
+    return CheckReport(is_online=False, time_ms=time_ms) # pragma: no cover <--

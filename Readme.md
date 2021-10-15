@@ -20,3 +20,12 @@ python manage.py check_status
 ```
 
 There are executed all checks of services. It should run if you want check services status.
+
+
+## Testing
+
+```sh
+flake8
+pytest --cov --cov-report html
+python manage.py test
+```
