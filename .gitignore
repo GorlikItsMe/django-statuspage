@@ -131,3 +131,8 @@ dmypy.json
 .vscode/launch.json
 
 .vercel
+
+static_root
+
+media/*
+!media/.gitkeep
