@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.db import models
 from .check_service import check_http
 
+
 class CheckMethod:
     HTTP = 'HTTP'
 
@@ -52,7 +53,7 @@ class Service(models.Model):
         null=True,
         blank=True
     )
-    
+
     status = models.BooleanField(verbose_name="Service Status", default=False)
 
     # used by checking system
@@ -61,22 +62,20 @@ class Service(models.Model):
 
     def __str__(self) -> str:
         return f"Service ({self.name})"
-    
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # if check is too old auto change to offline
         if all((
             self.next_check + timedelta(minutes=1) < timezone.now(),  # last check +1min is older than now
-            self.status == True
+            self.status is True
         )):
             self.status = False
             self.save()
 
-
-
     def check_service(self) -> bool:
         """checking service function"""
-        
+
         if self.check_method == CheckMethod.HTTP:
             c = check_http(self.url, self.timeout)
             print(c)

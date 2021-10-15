@@ -52,7 +52,7 @@ class Command(BaseCommand):
         while True:
             next_service = Service.objects.all().order_by('next_check').first()
             if next_service is None:
-                self.error("Service table is empty. Nothing to check. Waiting 30sek maybe you will add something in that time")
+                self.error("Service table is empty. Waiting 30sek maybe you will add Service to check")
                 sleep(30)
                 continue
             next_check_delta = next_service.next_check - timezone.now()
