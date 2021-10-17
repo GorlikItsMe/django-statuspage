@@ -102,8 +102,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-SESSION_COOKIE_SECURE=True
-CSRF_COOKIE_SECURE=True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 

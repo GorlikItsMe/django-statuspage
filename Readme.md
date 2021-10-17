@@ -90,4 +90,27 @@ server {
 ```
 sudo ln -s /etc/nginx/sites-available/myproject /etc/nginx/sites-enabled
 ```
- 
+
+```
+sudo nano /etc/systemd/system/statuspage.service
+```
+
+```
+[Unit]
+Description=StatusPage service
+After=multi-user.target
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/var/www/django-statuspage/.venv/bin/python /var/www/django-statuspage/manage.py check_status
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```sh
+sudo systemctl daemon-reload
+sudo systemctl start statuspage
+sudo systemctl enable statuspage
+```
