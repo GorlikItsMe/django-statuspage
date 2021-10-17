@@ -29,6 +29,28 @@ a {
     background-image: linear-gradient(19deg, #21D4FD 0%, #4221ff 100%);
 }
 
+@media (max-width: 740px) {
+    .jumbotron {
+        height: 30vh;
+        width: 100%;
+        padding-top: 40px;
+        text-align: center;
+        background-color: #21D4FD;
+        background-image: linear-gradient(19deg, #21D4FD 0%, #4221ff 100%);
+    }
+}
+
+@media (min-width: 800px) and (max-width: 850px) {
+    .jumbotron {
+        height: 30vh;
+        width: 100%;
+        padding-top: 40px;
+        text-align: center;
+        background-color: #21D4FD;
+        background-image: linear-gradient(19deg, #21D4FD 0%, #4221ff 100%);
+    }
+}
+
 .jumbotron h1 {
     color: #fffe;
     font-weight: bold;
@@ -73,4 +95,24 @@ a {
 
 .bg-status-bad {
     background-color: red;
+}
+
+.green {
+    color: lime;
+}
+
+.red {
+    color: red;
+}
+
+.copy-left {
+    font-weight: bold;
+    font-size: 18px;
+    float: left;
+}
+
+.copy-right {
+    font-weight: bold;
+    font-size: 18px;
+    float: right;
 }
