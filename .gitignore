@@ -133,6 +133,7 @@ dmypy.json
 .vercel
 
 static_root
+staticfiles
 
 media/*
 !media/.gitkeep

@@ -10,4 +10,7 @@ Replace:
 SSLCertificateFile /etc/letsencrypt/live/status.domain.com/fullchain.pem
 SSLCertificateKeyFile /etc/letsencrypt/live/status.domain.com/privkey.pem
 ```
+
 Replace this to your ssl config
+
+copy this 2 scripts to /etc/apache2/sites-enabled
