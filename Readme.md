@@ -67,11 +67,11 @@ Ngnix config
 ```
 server {
     listen 80;
-    server_name status.gorlik.com;
+    server_name status.domain.com;
 
     gzip on;
     error_log /var/log/nginx/status_error.log warn;
-    access_log /var/log/nginx/status_access.log compression;
+    access_log /var/log/nginx/status_access.log;
 
     location = /favicon.ico { access_log off; log_not_found off; }
     location /static/ {
@@ -80,10 +80,13 @@ server {
     location /media/ {
         alias /var/www/django-statuspage/media/; # ending slash is required
     }
-
     location / {
         include proxy_params;
         proxy_pass http://unix:/var/www/django-statuspage/djstatuspage.sock;
     }
 }
+```
+
+```
+sudo ln -s /etc/nginx/sites-available/myproject /etc/nginx/sites-enabled
 ```
