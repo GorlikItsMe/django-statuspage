@@ -1,6 +1,9 @@
+from typing import Any, Dict
 from django.shortcuts import render
-from django.views.generic import TemplateView, ListView
-from .models import Service
+from django.views.generic import TemplateView, ListView, DetailView
+from django.utils import timezone
+from datetime import timedelta
+from .models import Service, ServiceCheck
 
 
 class StatusPageView(ListView):
@@ -8,5 +11,6 @@ class StatusPageView(ListView):
     queryset = Service.objects.all().order_by('pos')
 
 
-class DetailServerView(TemplateView):
+class DetailServerView(DetailView):
     template_name = 'detail_server.html'
+    model = Service

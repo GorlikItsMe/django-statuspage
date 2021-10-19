@@ -1,7 +1,10 @@
 from datetime import timedelta
 from django.utils import timezone
 from django.db import models
+from django.db.models.signals import post_save, post_init
+from django.template.defaultfilters import slugify
 from .check_service import check_http
+import itertools
 
 
 class CheckMethod:
@@ -13,6 +16,7 @@ class CheckMethod:
 
 
 class Service(models.Model):
+    slug = models.SlugField(max_length=120, unique=True)
     name = models.CharField(
         verbose_name="Name",
         max_length=120
@@ -69,25 +73,86 @@ class Service(models.Model):
     def __str__(self) -> str:
         return f"Service ({self.name})"
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    @staticmethod
+    def check_is_online_too_long(sender, **kwargs):
+        """Checking is service too long online and correct it (make it offline)"""
+        instance: Service = kwargs.get('instance')
+        if instance.id is None:
+            instance.is_new = True
+            return
+        instance.is_new = False
+
         # if check is too old auto change to offline
         if all((
             # if last check + interval is older than now
-            self.last_check_time + timedelta(seconds=self.interval + 60) < timezone.now(),
-            self.status is True
+            instance.last_check_time + timedelta(seconds=instance.interval * 3) < timezone.now(),
+            instance.status is True
         )):
-            self.status = False
-            self.save()
+            instance.status = False
+            instance.save()
+            last_servicecheck = ServiceCheck.objects.filter(service=instance).order_by('datetime').last()
+            if last_servicecheck:
+                first_missing_dt = last_servicecheck.datetime + timedelta(seconds=instance.interval)
+            else:
+                # if last ServiceCheck is missing use now date
+                first_missing_dt = timezone.now()
+            ServiceCheck.objects.create(
+                service=instance,
+                latency=0,
+                online=False,
+                datetime=first_missing_dt
+            )
+
+    def _generate_slug(self):
+        value = self.name
+        slug_candidate = slug_original = slugify(value)
+        for i in itertools.count(1):
+            if not Service.objects.filter(slug=slug_candidate).exists():
+                break
+            slug_candidate = '{}-{}'.format(slug_original, i)
+        self.slug = slug_candidate
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self._generate_slug()
+        return super().save(*args, **kwargs)
 
     def check_service(self) -> bool:
-        """checking service function"""
+        """Checking service function"""
+        self.last_check_time = timezone.now()
 
         if self.check_method == CheckMethod.HTTP:
             c = check_http(self.url, self.timeout)
-            print(c)
             self.status = c.is_online
+            # self.last_check_time = timezone.now()
             self.save()
+            ServiceCheck.objects.create(
+                service=self,
+                latency=c.time_ms,
+                online=c.is_online,
+            )
             return c.is_online
 
         raise Exception("Unknown check_method")
+
+
+class ServiceCheck(models.Model):
+    """Used to store information about checks history"""
+    id = models.BigAutoField(primary_key=True)
+    service = models.ForeignKey(
+        Service,
+        on_delete=models.CASCADE,
+        related_name='servicechecks',
+        related_query_name='servicecheck',
+        db_index=True,
+    )
+    latency = models.IntegerField(default=0)
+    online = models.BooleanField(default=False)
+    datetime = models.DateTimeField(auto_now_add=True, db_index=True)  # created_at
+
+    def __str__(self) -> str:
+        online_str = "Online" if self.online else "Offline"
+        return f"{self.pk}. [{self.datetime}] ({self.service}) {self.latency}ms {online_str}"
+
+
+post_init.connect(Service.check_is_online_too_long, sender=Service)

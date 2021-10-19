@@ -1,0 +1,22 @@
+{% load static %}
+<script
+  src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"
+  integrity="sha256-bC3LCZCwKeehY6T4fFi9VfOU0gztUa+S4cnkIhVPZ5E="
+  crossorigin="anonymous"
+></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+{{ online_chart_json|json_script:"online_chart_json" }}
+
+<div>
+  <canvas id="uptime_chart"></canvas>
+</div>
+<script src="{% static 'js/uptime_chart.js' %}"></script>
+<script>
+  render_uptime_chart(document.getElementById("uptime_chart"), "{{ object.slug }}").then((obj)=>{
+    setInterval(()=>{
+      obj.refreshWithApi()
+      // todo add updating counter or something
+    }, 5000)
+  })
+  console.log("Chart rendered Success!")
+</script>

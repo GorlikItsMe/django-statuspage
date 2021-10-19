@@ -7,22 +7,22 @@
     padding: 0;
 }
 
-body {
+.dark-theme body {
     font-family: 'Poppins', sans-serif;
     text-decoration: none;
     color: #fffffe;
     background: #0f0e17;
 }
 
-a {
+.dark-theme a {
     text-decoration: none;
 }
 
-.container {
+.dark-theme .container {
     padding-top: 20px;
 }
 
-.jumbotron {
+.dark-theme .jumbotron {
     height: 20vh;
     width: 100%;
     padding-top: 40px;
@@ -32,7 +32,7 @@ a {
 }
 
 @media (max-width: 740px) {
-    .jumbotron {
+    .dark-theme .jumbotron {
         height: 30vh;
         width: 100%;
         padding-top: 40px;
@@ -43,7 +43,7 @@ a {
 }
 
 @media (min-width: 800px) and (max-width: 850px) {
-    .jumbotron {
+    .dark-theme .jumbotron {
         height: 30vh;
         width: 100%;
         padding-top: 40px;
@@ -53,78 +53,79 @@ a {
     }
 }
 
-.jumbotron h1 {
+.dark-theme .jumbotron h1 {
     color: #fffe;
     font-weight: bold;
 }
 
-.jumbotron h4 {
+.dark-theme .jumbotron h4 {
     color: #fffe;
     font-family: 'Ephesis', cursive;
     font-size: 30px;
 }
 
-.jumbotron h4 span {
+.dark-theme .jumbotron h4 span {
     color: #fffe;
     font-family: 'Poppins', sans-serif;
 }
 
-.rounded-lg {
+.dark-theme .rounded-lg {
     border-radius: 1rem !important;
+    color: black;
 }
 
-.text-small {
+.dark-theme .text-small {
     font-size: 0.9rem !important;
 }
 
-.custom-separator {
+.dark-theme .custom-separator {
     width: 5rem;
     height: 6px;
     border-radius: 1rem;
 }
 
-.text-uppercase {
+.dark-theme .text-uppercase {
     letter-spacing: 0.2em;
 }
 
-.bg-status-waring {
+.dark-theme .bg-status-waring {
     background-color: yellow;
 }
 
-.bg-status-ok {
+.dark-theme .bg-status-ok {
     background-color: lime;
 }
 
-.bg-status-bad {
+.dark-theme .bg-status-bad {
     background-color: red;
 }
 
-.green {
+.dark-theme .green {
     color: lime;
 }
 
-.red {
+.dark-theme .red {
     color: red;
 }
 
-.copy-left {
+.dark-theme .copy-left {
     font-weight: bold;
     font-size: 18px;
     float: left;
 }
 
-.copy-right {
+.dark-theme .copy-right {
     font-weight: bold;
     font-size: 18px;
     float: right;
 }
 
-.box a {
+.dark-theme .box a {
     text-decoration: none;
     color: black;
 }
 
-.box a:hover {
+.dark-theme .box a:hover {
     text-decoration: none;
     color: lime;
 }
