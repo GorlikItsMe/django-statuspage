@@ -64,10 +64,10 @@ class Command(BaseCommand):
                 if next_check_delta.seconds > 30:
                     sleep(30)
                 else:
-                    sleep(next_check_delta.microseconds/1000000 + 0.1)
+                    sleep(next_check_delta.microseconds / 1000000 + 0.1)
             else:
                 # if delta is near 0 wait 1 sec
-                sleep(next_check_delta.microseconds/1000000 + 0.1)
+                sleep(next_check_delta.microseconds / 1000000 + 0.1)
 
             service_list = Service.objects.filter(next_check__lte=timezone.now())
 
