@@ -57,17 +57,17 @@ class Command(BaseCommand):
                 continue
             next_check_delta = next_service.next_check - timezone.now()
             # check delta is positive (if negative that means we must check now)
-            if next_check_delta.total_seconds() > 0:
+            if next_check_delta.total_seconds() >= 1:
                 self.info(f"Next check in {next_check_delta.seconds} sec")
 
                 # minimum sleep is 30sec
                 if next_check_delta.seconds > 30:
                     sleep(30)
                 else:
-                    sleep(next_check_delta.seconds)
+                    sleep(next_check_delta.microseconds/1000000 + 0.1)
             else:
                 # if delta is near 0 wait 1 sec
-                sleep(1)
+                sleep(next_check_delta.microseconds/1000000 + 0.1)
 
             service_list = Service.objects.filter(next_check__lte=timezone.now())
 
