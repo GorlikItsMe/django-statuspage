@@ -13,11 +13,24 @@ async function render_uptime_chart(ctx, service_slug) {
   const data = {
     datasets: [
       {
-        label: "ping ms",
+        label: "Ping (ms)",
         backgroundColor: "rgb(0, 255, 0)",
         borderColor: "rgb(0, 255, 0)",
         fill: false,
         data: datax.data,
+        lineTension: 0.1,
+        pointRadius: 0,
+        pointHoverRadius: 0,
+        pointBorderWidth: 0,
+        segment: {
+          borderColor: (ctx) => {
+            if (ctx.p1.parsed.y == 0) {
+              return "rgb(255,0,0)";
+            }
+            return undefined;
+          },
+          //ctx => skipped(ctx, 'rgb(0,0,0,0.2)') || down(ctx, 'rgb(192,75,75)'),
+        },
       },
     ],
   };
@@ -26,15 +39,18 @@ async function render_uptime_chart(ctx, service_slug) {
     type: "line",
     data: data,
     options: {
-      spanGaps: 1000 * 60 * 5, // 5min  // 1000 * 60 * 60 * 24 * 2, // 2 days
+      spanGaps: 1000 * 60 * 60, // 60min
       responsive: true,
       interaction: {
-        mode: "nearest",
+        intersect: false,
+        mode: "index",
+      },
+      legend: {
+        display: false,
       },
       plugins: {
-        title: {
-          display: true,
-          text: "Uptime",
+        tooltip: {
+          position: "average",
         },
       },
       scales: {
@@ -46,12 +62,12 @@ async function render_uptime_chart(ctx, service_slug) {
           //   text: "Date",
           // },
           time: {
-            tooltipFormat: 'H:mm',
+            tooltipFormat: "H:mm",
             displayFormats: {
-              minute: 'H:mm',
-              hour: 'H:00',
-              day: 'MMM D',
-            }
+              minute: "H:mm",
+              hour: "H:00",
+              day: "MMM D",
+            },
           },
           ticks: {
             autoSkip: false,
@@ -59,9 +75,9 @@ async function render_uptime_chart(ctx, service_slug) {
             major: {
               enabled: true,
             },
-            // color: function(context) {
-            //   return context.tick && context.tick.major ? '#FF0000' : 'rgba(0,0,0,0.1)';
-            // },
+            color: function(context) {
+              return context.tick && context.tick.major ? '#000' : '#fff'; // #727272
+            },
             font: function (context) {
               if (context.tick && context.tick.major) {
                 return {
