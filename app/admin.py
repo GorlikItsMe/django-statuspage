@@ -10,7 +10,7 @@ class ServiceAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ('General', {
-            'fields': ('name', 'desc', 'link', 'pos', 'status')
+            'fields': ('name', 'slug', 'desc', 'link', 'pos')
         }),
         ('Checking status settings', {
             # 'classes': ('collapse',),

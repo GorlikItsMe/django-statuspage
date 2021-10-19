@@ -2,7 +2,9 @@ from datetime import timedelta
 from django.utils import timezone
 from django.db import models
 from django.db.models.signals import post_save, post_init
+from django.template.defaultfilters import slugify
 from .check_service import check_http
+import itertools
 
 
 class CheckMethod:
@@ -14,6 +16,7 @@ class CheckMethod:
 
 
 class Service(models.Model):
+    slug = models.SlugField(max_length=120, unique=True)
     name = models.CharField(
         verbose_name="Name",
         max_length=120
@@ -99,6 +102,20 @@ class Service(models.Model):
                 online=False,
                 datetime=first_missing_dt
             )
+
+    def _generate_slug(self):
+        value = self.name
+        slug_candidate = slug_original = slugify(value)
+        for i in itertools.count(1):
+            if not Service.objects.filter(slug=slug_candidate).exists():
+                break
+            slug_candidate = '{}-{}'.format(slug_original, i)
+        self.slug = slug_candidate
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self._generate_slug()
+        return super().save(*args, **kwargs)
 
     def check_service(self) -> bool:
         """Checking service function"""
