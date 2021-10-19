@@ -60,6 +60,12 @@ class Service(models.Model):
     next_check = models.DateTimeField(default=timezone.now)
     last_check_time = models.DateTimeField(default=timezone.now)
 
+    @property
+    def status_html(self):
+        if self.status:
+            return "green"
+        return "red"
+
     def __str__(self) -> str:
         return f"Service ({self.name})"
 
