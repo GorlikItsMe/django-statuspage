@@ -1,8 +1,9 @@
 from typing import Any, Dict
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView
-from .models import Service
-import json
+from django.utils import timezone
+from datetime import timedelta
+from .models import Service, ServiceCheck
 
 
 class StatusPageView(ListView):
@@ -16,15 +17,5 @@ class DetailServerView(DetailView):
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         c = super().get_context_data(**kwargs)
-        c['online_chart_json'] = json.dumps({
-            'labels': [5],
-            'data': [50, 55, 12]
-        })
         return c
 
-
-# Chart helper funcitons
-def chart_labels():
-    labels = []
-    for x in range(100):
-        pass
