@@ -4,3 +4,6 @@ from django.views.generic import TemplateView
 
 class StatusPageView(TemplateView):
     template_name = 'statuspage.html'
+
+class DetailServerView(TemplateView):
+    template_name = 'detail_server.html'
