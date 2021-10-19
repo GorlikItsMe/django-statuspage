@@ -87,8 +87,12 @@ class Service(models.Model):
         )):
             instance.status = False
             instance.save()
-            first_missing_dt = ServiceCheck.objects.filter(service=instance).order_by(
-                'datetime').last().datetime + timedelta(seconds=instance.interval)
+            last_servicecheck = ServiceCheck.objects.filter(service=instance).order_by('datetime').last()
+            if last_servicecheck:
+                first_missing_dt = last_servicecheck.datetime + timedelta(seconds=instance.interval)
+            else:
+                # if last ServiceCheck is missing use now date
+                first_missing_dt = timezone.now()
             ServiceCheck.objects.create(
                 service=instance,
                 latency=0,
