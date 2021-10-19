@@ -6,3 +6,7 @@ from .models import Service
 class StatusPageView(ListView):
     template_name = 'statuspage.html'
     queryset = Service.objects.all().order_by('pos')
+
+
+class DetailServerView(TemplateView):
+    template_name = 'detail_server.html'
