@@ -14,9 +14,9 @@ async function render_uptime_chart(ctx, service_slug) {
     datasets: [
       {
         label: "Ping (ms)",
-        backgroundColor: "rgb(0, 255, 0)",
-        borderColor: "rgb(0, 255, 0)",
-        fill: false,
+        backgroundColor: "#3ba55c50",
+        borderColor: "#3ba55c",
+        fill: true,
         data: datax.data,
         lineTension: 0.1,
         pointRadius: 0,
@@ -35,6 +35,8 @@ async function render_uptime_chart(ctx, service_slug) {
     ],
   };
 
+  var delayed;
+  
   let uptime_chart = new Chart(ctx, {
     type: "line",
     data: data,
@@ -45,12 +47,24 @@ async function render_uptime_chart(ctx, service_slug) {
         intersect: false,
         mode: "index",
       },
-      legend: {
-        display: false,
+      animation: {
+        onComplete: () => {
+          delayed = true;
+        },
+        delay: (context) => {
+          let delay = 0;
+          if (context.type === 'data' && context.mode === 'default' && !delayed) {
+            delay = context.dataIndex * 4;
+          }
+          return delay;
+        },
       },
       plugins: {
         tooltip: {
           position: "average",
+        },
+        legend: {
+          display: false,
         },
       },
       scales: {
