@@ -66,7 +66,7 @@ async function render_uptime_chart(ctx, service_slug) {
             displayFormats: {
               minute: "H:mm",
               hour: "H:00",
-              day: "MMM D",
+              day: "MMM d",
             },
           },
           ticks: {
