@@ -76,7 +76,7 @@ async function render_uptime_chart(ctx, service_slug) {
               enabled: true,
             },
             color: function(context) {
-              return context.tick && context.tick.major ? '#000' : '#fff'; // #727272
+              return context.tick && context.tick.major ? '#000' : '#727272';
             },
             font: function (context) {
               if (context.tick && context.tick.major) {
