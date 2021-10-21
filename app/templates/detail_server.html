@@ -17,7 +17,7 @@
 <body>
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-4 text-welcome p-3"><i class="fas fa-circle green"></i> Gorlik.pl <i class="fas fa-long-arrow-alt-right"></i> <span class="status">100%</span></h1>
+            <h1 class="display-4 text-welcome p-3"><i class="fas fa-circle {{ service.status_html }}"></i> {{ service.name }} <i class="fas fa-long-arrow-alt-right"></i> <span class="status">100%</span></h1>
         </div>
     </div>
     <div class="container py-5">
@@ -28,7 +28,7 @@
             <div class="col-lg-4 mb-5 mb-lg-0">
                 <div class="bg-white p-5 rounded-lg shadow">
                     <h1 class="h6 text-uppercase font-weight-bold mb-4 text-center">LAST UPDATE</h1>
-                    <h2 class="h1 font-weight-bold text-center">Last updated 13:05:34</h2>
+                    <h2 class="h3 font-weight-bold text-center">Last updated 13:05:34</h2>
 
                     <div class="custom-separator my-4 mx-auto bg-primary"></div>
                 </div>
@@ -40,7 +40,7 @@
             <div class="col-lg-4 mb-5 mb-lg-0">
                 <div class="bg-white p-5 rounded-lg shadow">
                     <h1 class="h6 text-uppercase font-weight-bold mb-4 text-center">NOW STATUS</h1>
-                    <h2 class="h1 font-weight-bold text-center"> Good<br>100%</h2>
+                    <h2 class="h3 font-weight-bold text-center"> Good 100%</h2>
 
                     <div class="custom-separator my-4 mx-auto bg-status-ok"></div>
                 </div>
@@ -52,7 +52,7 @@
             <div class="col-lg-4 mb-5 mb-lg-0">
                 <div class="bg-white p-5 rounded-lg shadow">
                     <h1 class="h6 text-uppercase font-weight-bold mb-4 text-center">NEXT UPDATE</h1>
-                    <h2 class="h1 font-weight-bold text-center">Next update in 05 sec</h2>
+                    <h2 class="h3 font-weight-bold text-center">Next update in 05 sec</h2>
 
                     <div class="custom-separator my-4 mx-auto bg-primary"></div>
                 </div>
@@ -63,7 +63,7 @@
     </div>
     <div class="container py-1">
         <div class="bg-white p-5 mb-5 rounded-lg shadow">
-            <h1 class="h1 text-uppercase font-weight-bold mb-4 text-left">Uptime</h1>
+            <h1 class="h3 text-uppercase font-weight-bold mb-4 text-left">Uptime</h1>
             <h1 class="h6 text-uppercase font-weight-bold mb-4 text-left">last 90 days</h1>
             <div class="box p-3">
                 <h5><i class="fas fa-circle green"></i> <span class="status">100%</span></h5>
@@ -71,34 +71,34 @@
             </div>
         </div>
         <div class="bg-white p-5 mb-5 rounded-lg shadow">
-            <h1 class="h1 text-uppercase font-weight-bold mb-4 text-left">Overall Uptime</h1>
+            <h1 class="h3 text-uppercase font-weight-bold mb-4 text-left">Overall Uptime</h1>
             <div class="box p-3">
                 <div class="row">
                     <div class="col-md-3">
-                        <h1 class="h3 text-uppercase font-weight-bold mb-4 text-left">100.00%</h1>
+                        <h1 class="h4 text-uppercase font-weight-bold mb-4 text-left">100.00%</h1>
                         <h1 class="h6 text-uppercase font-weight-bold mb-4 text-left">Last 24 hours</h1>
                     </div>
                     <div class="col-md-3">
-                        <h1 class="h3 text-uppercase font-weight-bold mb-4 text-left">100.00%</h1>
+                        <h1 class="h4 text-uppercase font-weight-bold mb-4 text-left">100.00%</h1>
                         <h1 class="h6 text-uppercase font-weight-bold mb-4 text-left">Last 7 days</h1>
                     </div>
                     <div class="col-md-3">
-                        <h1 class="h3 text-uppercase font-weight-bold mb-4 text-left">100.00%</h1>
+                        <h1 class="h4 text-uppercase font-weight-bold mb-4 text-left">100.00%</h1>
                         <h1 class="h6 text-uppercase font-weight-bold mb-4 text-left">Last 30 days</h1>
                     </div>
                     <div class="col-md-3">
-                        <h1 class="h3 text-uppercase font-weight-bold mb-4 text-left">100.00%</h1>
+                        <h1 class="h4 text-uppercase font-weight-bold mb-4 text-left">100.00%</h1>
                         <h1 class="h6 text-uppercase font-weight-bold mb-4 text-left">Last 90 days</h1>
                     </div>
                 </div>
             </div>
         </div>
         <div class="bg-white p-5 mb-5 rounded-lg shadow">
-            <h1 class="h1 text-uppercase font-weight-bold mb-4 text-left">Response Time</h1>
+            <h1 class="h3 text-uppercase font-weight-bold mb-4 text-left">Response Time</h1>
             <h1 class="h6 text-uppercase font-weight-bold mb-4 text-left">Last 2 days</h1>
         </div>
         <div class="bg-white p-5 mb-5 rounded-lg shadow">
-            <h1 class="h1 text-uppercase font-weight-bold mb-4 text-left">Recent events</h1>
+            <h1 class="h3 text-uppercase font-weight-bold mb-4 text-left">Recent events</h1>
         </div>
     </div>
     <footer>
